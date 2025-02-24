@@ -3,16 +3,15 @@
   "workspaces": {
     "": {
       "name": "@pluto-khronos/types",
+      "dependencies": {
+        "zod": "^3.24.2",
+      },
       "devDependencies": {
         "@biomejs/biome": "1.9.4",
         "@types/bun": "^1.2.3",
         "@types/node": "^22.13.5",
         "lefthook": "^1.11.0",
         "typescript": "^5.0.0",
-        "zod": "^3.24.2",
-      },
-      "peerDependencies": {
-        "zod": "^3.24.2",
       },
     },
   },
