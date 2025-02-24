@@ -1,5 +1,3 @@
-// https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/util/Util.js#L258
-// https://discord.js.org/docs/packages/discord.js/main/ColorResolvable:TypeAlias
 export type ColorResolvable =
 	| `#${string}`
 	| "DEFAULT"
