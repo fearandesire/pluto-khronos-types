@@ -1,3 +1,4 @@
+import type { Team } from 'resolve-team';
 /**
  * @group Channels
  * Schemas for managing Discord channel-related operations
@@ -81,10 +82,10 @@ export const channelAggregatedSchema = z
 	.describe('Aggregated channel information including match and odds details');
 
 /**
- * Schema for match embed preparation data
+ * Schema for match embed display data
  * @group Channel Embeds
  */
-export const prepareMatchEmbedSchema = z
+export const matchEmbedDisplaySchema = z
 	.object({
 		favored: z.string().describe('Team favored to win'),
 		favoredTeamClr: colorResolvableSchema.describe(
@@ -106,7 +107,7 @@ export const prepareMatchEmbedSchema = z
 			.optional()
 			.describe('Optional team records'),
 	})
-	.describe('Data structure for preparing match embed messages');
+	.describe('Data structure for match embed display formatting');
 
 /**
  * Schema for guild data with channel creation eligibility
@@ -147,16 +148,39 @@ export const incomingChannelDataSchema = z
 	})
 	.describe('Schema for Pluto to process channel creation events');
 
+export const ChannelWithGuildAggregatedSchema = z
+	.object({
+		channel: channelAggregatedSchema,
+		guild: channelEligibleGuildSchema,
+	})
+	.describe(
+		'Combined data structure of a channel that will be created and the guild information paired with it',
+	);
 /**
- * Type representing guild data with channel eligibility
- * @group Guilds
+ * Pluto aggregated data structure when creating a channel
+ * Pluto adds the favored team and match image
+ * @group Channel Creation
  */
+export const channelEmbedPayloadSchema =
+	ChannelWithGuildAggregatedSchema.extend({
+		metadata: z.object({
+			favoredTeamInfo: z.custom<Team>().describe('Resolved team information'),
+			matchImg: z.instanceof(Buffer).nullable().describe('Match image buffer'),
+			...matchMetadataSchema.shape,
+		}),
+	}).describe('Data required to create a channel and send an embed');
+
+export type ChannelWithGuildAggregated = z.infer<
+	typeof ChannelWithGuildAggregatedSchema
+>;
+
+export type ChannelEmbedPayload = z.infer<typeof channelEmbedPayloadSchema>;
 export type ChannelEligibleGuild = z.infer<typeof channelEligibleGuildSchema>;
 
 export type ChannelDeletionJob = z.infer<typeof channelDeletionJobSchema>;
 export type ChannelDeletionResult = z.infer<typeof channelDeletionResultSchema>;
 export type ChannelDeletionEvent = z.infer<typeof channelDeletionEventSchema>;
 export type ChannelAggregated = z.infer<typeof channelAggregatedSchema>;
-export type PrepareMatchEmbed = z.infer<typeof prepareMatchEmbedSchema>;
+export type MatchEmbedDisplay = z.infer<typeof matchEmbedDisplaySchema>;
 export type ChannelCreationEvent = z.infer<typeof channelCreationEventSchema>;
 export type IncomingChannelData = z.infer<typeof incomingChannelDataSchema>;
