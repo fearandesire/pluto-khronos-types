@@ -1,11 +1,11 @@
 /**
  * @group Colors
- * @description Schemas for Discord color-related types and validations
+ * Schemas for Discord color-related types and validations
  */
 import { z } from 'zod';
 
 /**
- * @description Schema for Discord.js color values, supporting hex, integer, and named colors
+ * Schema for Discord.js color values, supporting hex, integer, and named colors
  * @group Colors
  */
 export const colorResolvableSchema = z
@@ -61,7 +61,7 @@ export const colorResolvableSchema = z
 	);
 
 /**
- * @description Type representing a Discord.js color value
+ * Type representing a Discord.js color value
  * @group Colors
  */
 export type ColorResolvable = z.infer<typeof colorResolvableSchema>;

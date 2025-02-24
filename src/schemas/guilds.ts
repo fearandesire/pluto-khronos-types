@@ -1,11 +1,11 @@
 /**
  * @group Guilds
- * @description Schemas and types for Discord guild (server) configurations
+ * Schemas and types for Discord guild (server) configurations
  */
 import { z } from 'zod';
 
 /**
- * @description Base schema for guild configuration
+ * Base schema for guild configuration
  * @group Guilds
  */
 export const guildConfigSchema = z
@@ -28,7 +28,7 @@ export const guildConfigSchema = z
 	.describe('Base Discord Guild configuration');
 
 /**
- * @description Type representing base guild configuration
+ * Type representing base guild configuration
  * @group Guilds
  */
 export type GuildConfig = z.infer<typeof guildConfigSchema>;

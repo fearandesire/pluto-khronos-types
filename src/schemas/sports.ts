@@ -1,11 +1,11 @@
 /**
  * @group Sports
- * @description Schemas and types for sports-related data
+ * Schemas and types for sports-related data
  */
 import { z } from 'zod';
 
 /**
- * @description Constant object defining supported sports
+ * Constant object defining supported sports
  * @group Sports
  */
 export const SportsServing = {
@@ -14,7 +14,7 @@ export const SportsServing = {
 } as const;
 
 /**
- * @description Schema for supported sports in the application
+ * Schema for supported sports in the application
  * @group Sports
  */
 export const sportsServingSchema = z
@@ -22,7 +22,7 @@ export const sportsServingSchema = z
 	.describe('Sports we support in the APIs');
 
 /**
- * @description Schema for a team's record information
+ * Schema for a team's record information
  * @group Sports
  */
 export const teamRecordSchema = z
@@ -32,7 +32,7 @@ export const teamRecordSchema = z
 	.describe('Team record structure');
 
 /**
- * @description Schema for both teams' record information in a match
+ * Schema for both teams' record information in a match
  * @group Sports
  */
 export const teamRecordsResultSchema = z
@@ -43,14 +43,20 @@ export const teamRecordsResultSchema = z
 	.describe('Team Record information for both teams in a match');
 
 /**
- * @description Type representing a team's record
+ * Type representing a team's record
  * @group Sports
  */
 export type TeamRecord = z.infer<typeof teamRecordSchema>;
 
 /**
- * @description Type representing both teams' records in a match
+ * Type representing both teams' records in a match
 
  * @group Sports
  */
 export type TeamRecordsResult = z.infer<typeof teamRecordsResultSchema>;
+
+/**
+ * Type representing the sports we support
+ * @group Sports
+ */
+export type SportsServing = z.infer<typeof sportsServingSchema>;

@@ -1,11 +1,11 @@
 /**
  * @group Teams
- * @description Schemas for team-related data
+ * Schemas for team-related data
  */
 import { z } from 'zod';
 
 /**
- * @description Schema for team names in a match
+ * Schema for team names in a match
  * @group Teams
  */
 export const matchTeamsSchema = z
@@ -16,7 +16,7 @@ export const matchTeamsSchema = z
 	.describe('Team names in a match');
 
 /**
- * @description Schema for team abbreviations
+ * Schema for team abbreviations
  * @group Teams
  */
 export const teamAbbreviationsSchema = z

@@ -1,3 +1,7 @@
 src/
 tsconfig.json
 .gitignore
+html
+docs
+typedoc.json
+typedoc.markdown.json

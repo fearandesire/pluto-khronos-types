@@ -1,0 +1,67 @@
+{
+	"entryPoints": ["src/index.ts"],
+	"out": "html",
+	"plugin": ["typedoc-plugin-mdn-links", "typedoc-plugin-zod"],
+	"name": "@pluto-khronos/types",
+	"excludePrivate": true,
+	"excludeInternal": true,
+	"excludeExternals": true,
+	"includeVersion": true,
+	"categorizeByGroup": true,
+	"groupOrder": [
+		"Channel",
+		"Guild",
+		"Queue",
+		"Sports",
+		"Base Schemas",
+		"Shared",
+		"*"
+	],
+	"categoryOrder": [
+		"Channel",
+		"Guild",
+		"Queue",
+		"Sports",
+		"Base Schemas",
+		"Shared",
+		"*"
+	],
+	"sort": ["kind", "alphabetical"],
+	"kindSortOrder": [
+		"Reference",
+		"Project",
+		"Module",
+		"Namespace",
+		"Enum",
+		"EnumMember",
+		"Class",
+		"Interface",
+		"TypeAlias",
+		"Constructor",
+		"Property",
+		"Variable",
+		"Function",
+		"Accessor",
+		"Method"
+	],
+	"readme": "README.md",
+	"tsconfig": "tsconfig.json",
+	"visibilityFilters": {
+		"protected": true,
+		"private": false,
+		"inherited": true,
+		"external": false
+	},
+	"navigationLinks": {
+		"GitHub": "https://github.com/fearandesire/pluto-khronos-types"
+	},
+	"searchInComments": true,
+	"cleanOutputDir": true,
+	"hideGenerator": true,
+	"titleLink": "/",
+	"darkHighlightTheme": "github-dark",
+	"lightHighlightTheme": "github-light",
+	"customCss": "./docs/custom.css",
+	"groupReferencesByType": true,
+	"defaultCategory": "Other"
+}

@@ -1,0 +1,23 @@
+{
+	"entryPoints": ["src/index.ts"],
+	"out": "markdown",
+	"plugin": [
+		"typedoc-plugin-mdn-links",
+		"typedoc-plugin-zod",
+		"typedoc-plugin-markdown"
+	],
+	"theme": "markdown",
+	"name": "Pluto Khronos Types",
+	"excludePrivate": true,
+	"excludeInternal": true,
+	"excludeExternals": true,
+	"includeVersion": true,
+	"categorizeByGroup": true,
+	"groupOrder": ["Base Schemas", "Channel", "Guild", "Queue", "Sports", "*"],
+	"categoryOrder": ["Base Schemas", "Channel", "Guild", "Queue", "Sports", "*"],
+	"sort": ["kind", "alphabetical"],
+	"readme": "README.md",
+	"tsconfig": "tsconfig.json",
+	"hideGenerator": true,
+	"gitRevision": "main"
+}

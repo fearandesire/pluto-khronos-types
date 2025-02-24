@@ -1,11 +1,11 @@
 /**
  * @group Betting
- * @description Schemas for betting and odds-related data
+ * Schemas for betting and odds-related data
  */
 import { z } from 'zod';
 
 /**
- * @description Schema for match betting odds
+ * Schema for match betting odds
  * @group Betting
  */
 export const matchOddsSchema = z

@@ -1,12 +1,12 @@
 /**
  * @group Metadata
- * @description Common metadata schemas used across features
+ * Common metadata schemas used across features
  */
 import { z } from 'zod';
 import { teamRecordsResultSchema } from './sports';
 
 /**
- * @description Schema for match metadata
+ * Schema for match metadata
  * @group Metadata
  */
 export const matchMetadataSchema = z
