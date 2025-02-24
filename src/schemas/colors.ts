@@ -57,6 +57,7 @@ export const colorResolvableSchema = z
 			])
 			.describe('Discord.js predefined color names'),
 	])
+	.transform((val) => val as unknown as DiscordColorResolvable)
 	.describe(
 		'Discord.js ColorResolvable - supports hex codes, integers, and predefined color names',
 	);
@@ -66,5 +67,4 @@ export const colorResolvableSchema = z
  * Directly compatible with Discord.js ColorResolvable type when discord.js is installed
  * @group Colors
  */
-export type ColorResolvable = z.infer<typeof colorResolvableSchema> &
-	DiscordColorResolvable;
+export type ColorResolvable = z.output<typeof colorResolvableSchema>;
