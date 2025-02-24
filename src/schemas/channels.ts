@@ -5,7 +5,7 @@
 import { z } from 'zod';
 import { matchOddsSchema } from './betting';
 import { colorResolvableSchema } from './colors';
-import { channelEligibleGuildSchema } from './guilds';
+import { guildConfigSchema } from './guilds';
 import { matchMetadataSchema } from './match-metadata';
 import { bullMqMetadataSchema } from './shared';
 import { sportsServingSchema, teamRecordsResultSchema } from './sports';
@@ -13,7 +13,6 @@ import { matchTeamsSchema } from './teams';
 
 /**
  * @description Schema for channel deletion job data
-
  * @group Channel Deletion
  */
 export const channelDeletionJobSchema = z
@@ -28,7 +27,6 @@ export const channelDeletionJobSchema = z
 
 /**
  * @description Schema for channel deletion operation results
-
  * @group Channel Deletion
  */
 export const channelDeletionResultSchema = z
@@ -43,7 +41,6 @@ export const channelDeletionResultSchema = z
 
 /**
  * @description Schema for channel deletion event data
-
  * @group Channel Deletion
  */
 export const channelDeletionEventSchema = z
@@ -66,7 +63,6 @@ export const channelDeletionEventSchema = z
 
 /**
  * @description Schema for aggregated channel information
-
  * @group Channel Data
  */
 export const channelAggregatedSchema = z
@@ -86,7 +82,6 @@ export const channelAggregatedSchema = z
 
 /**
  * @description Schema for match embed preparation data
-
  * @group Channel Embeds
  */
 export const prepareMatchEmbedSchema = z
@@ -114,8 +109,19 @@ export const prepareMatchEmbedSchema = z
 	.describe('Data structure for preparing match embed messages');
 
 /**
- * @description Schema for channel creation events
+ * @description Schema for guild data with channel creation eligibility
+ * @group Guilds
+ */
+export const channelEligibleGuildSchema = guildConfigSchema
+	.extend({
+		eligibleMatches: z
+			.array(z.string())
+			.describe('List of match IDs eligible for channel creation'),
+	})
+	.describe('Guild data for channel creation eligibility');
 
+/**
+ * @description Schema for channel creation events
  * @group Channel Creation
  */
 export const channelCreationEventSchema = z
@@ -128,7 +134,6 @@ export const channelCreationEventSchema = z
 
 /**
  * @description Schema for incoming channel data from Pluto
-
  * @group Channel Data
  */
 export const incomingChannelDataSchema = z
@@ -141,6 +146,12 @@ export const incomingChannelDataSchema = z
 			.describe('Array of eligible guild data'),
 	})
 	.describe('Schema for Pluto to process channel creation events');
+
+/**
+ * @description Type representing guild data with channel eligibility
+ * @group Guilds
+ */
+export type ChannelEligibleGuild = z.infer<typeof channelEligibleGuildSchema>;
 
 export type ChannelDeletionJob = z.infer<typeof channelDeletionJobSchema>;
 export type ChannelDeletionResult = z.infer<typeof channelDeletionResultSchema>;
