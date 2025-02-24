@@ -4,23 +4,31 @@
 	"description": "Shared TypeScript types for Pluto & Khronos projects",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "tsc",
 		"type-check": "tsc --noEmit",
-		"clean": "rm -rf dist"
+		"clean": "rm -rf dist",
+		"format": "biome check --write --unsafe ."
 	},
 	"publishConfig": {
 		"access": "public"
 	},
-	"keywords": ["typescript", "types"],
+	"keywords": [
+		"typescript",
+		"types"
+	],
 	"license": "MIT",
 	"peerDependencies": {
 		"zod": "^3.24.2"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
 		"@types/bun": "^1.2.3",
 		"@types/node": "^22.13.5",
+		"lefthook": "^1.11.0",
 		"typescript": "^5.0.0",
 		"zod": "^3.24.2"
 	}
