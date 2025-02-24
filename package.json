@@ -27,6 +27,7 @@
 		"@biomejs/biome": "1.9.4",
 		"@types/bun": "^1.2.3",
 		"@types/node": "^22.13.5",
+		"discord.js": "^14.18.0",
 		"lefthook": "^1.11.0",
 		"typedoc": "^0.27.8",
 		"typedoc-plugin-markdown": "^4.4.2",
@@ -38,5 +39,8 @@
 	"dependencies": {
 		"resolve-team": "^2.0.4",
 		"zod": "^3.24.2"
+	},
+	"peerDependencies": {
+		"discord.js": "^14.0.0"
 	}
 }

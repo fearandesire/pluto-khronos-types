@@ -83,7 +83,7 @@ export const channelAggregatedSchema = z
 
 /**
  * Schema for match embed display data
- * @group Channel Embeds
+ * @group Channel Creation
  */
 export const matchEmbedDisplaySchema = z
 	.object({

@@ -1,3 +1,4 @@
+import type { ColorResolvable as DiscordColorResolvable } from 'discord.js';
 /**
  * @group Colors
  * Schemas for Discord color-related types and validations
@@ -62,6 +63,8 @@ export const colorResolvableSchema = z
 
 /**
  * Type representing a Discord.js color value
+ * Directly compatible with Discord.js ColorResolvable type when discord.js is installed
  * @group Colors
  */
-export type ColorResolvable = z.infer<typeof colorResolvableSchema>;
+export type ColorResolvable = z.infer<typeof colorResolvableSchema> &
+	DiscordColorResolvable;
