@@ -1,7 +1,6 @@
 pre-commit:
   commands:
     lint:
-      format: "*.{js,ts,jsx,tsx}"
       run: bun format {staged_files}
       stage_fixed: true
 

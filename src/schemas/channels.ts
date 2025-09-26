@@ -18,9 +18,16 @@ import { matchTeamsSchema } from './teams';
  */
 export const channelDeletionJobSchema = z
 	.object({
-		channelName: z.string().describe('Name of the channel to be deleted'),
+		channelName: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Channel name is required.' }
+						: { message: 'Channel name must be a string.' },
+			})
+			.describe('Name of the channel to be deleted'),
 		jobId: z
-			.string()
+			.string({ error: 'Job ID must be a string if provided.' })
 			.optional()
 			.describe('Optional unique identifier for the deletion job'),
 	})
@@ -33,10 +40,25 @@ export const channelDeletionJobSchema = z
 export const channelDeletionResultSchema = z
 	.object({
 		success: z
-			.boolean()
+			.boolean({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Success status is required.' }
+						: { message: 'Success status must be a boolean.' },
+			})
 			.describe('Whether the deletion operation was successful'),
-		channelName: z.string().describe('Name of the channel that was processed'),
-		error: z.string().optional().describe('Error message if deletion failed'),
+		channelName: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Channel name is required.' }
+						: { message: 'Channel name must be a string.' },
+			})
+			.describe('Name of the channel that was processed'),
+		error: z
+			.string({ error: 'Error message must be a string if present.' })
+			.optional()
+			.describe('Error message if deletion failed'),
 	})
 	.describe('BullMQ Schema structure for channel deletion results');
 
@@ -47,15 +69,33 @@ export const channelDeletionResultSchema = z
 export const channelDeletionEventSchema = z
 	.object({
 		channelIds: z
-			.array(z.string())
+			.array(
+				z.string({ error: 'Each channel ID in the array must be a string.' }),
+				{
+					error: (issue) =>
+						issue.input === undefined
+							? { message: 'An array of channel IDs is required.' }
+							: { message: 'Channel IDs must be provided as an array.' },
+				},
+			)
 			.describe('Array of channel IDs to be deleted from Discord'),
 		metadata: z
 			.object({
 				publishedAt: z
-					.date()
+					.date({
+						error: (issue) =>
+							issue.input === undefined
+								? { message: 'Published timestamp is required.' }
+								: { message: 'Published at must be a valid date.' },
+					})
 					.describe('Timestamp when the deletion event was published'),
 				eventId: z
-					.string()
+					.string({
+						error: (issue) =>
+							issue.input === undefined
+								? { message: 'Event ID is required.' }
+								: { message: 'Event ID must be a string.' },
+					})
 					.describe('Unique identifier for tracking the deletion event'),
 			})
 			.describe('Metadata associated with the channel deletion event'),
@@ -68,13 +108,41 @@ export const channelDeletionEventSchema = z
  */
 export const channelAggregatedSchema = z
 	.object({
-		id: z.string().describe('Unique identifier for the channel'),
+		id: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Channel ID is required.' }
+						: { message: 'Channel ID must be a string.' },
+			})
+			.describe('Unique identifier for the channel'),
 		sport: sportsServingSchema,
 		created: z
-			.boolean()
-			.describe('Whether the channel has been created in Discord'),
-		gametime: z.date().describe('Scheduled time for the game/match'),
-		channelname: z.string().describe('Name of the Discord channel'),
+			.boolean({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Creation status is required.' }
+						: { message: 'Creation status must be a boolean.' },
+			})
+			.describe(
+				'Whether the channel has been created in Discord [DEPRECATED FLAG]',
+			),
+		gametime: z
+			.date({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Game time is required.' }
+						: { message: 'Game time must be a valid date.' },
+			})
+			.describe('Scheduled time for the game/match'),
+		channelname: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Channel name is required.' }
+						: { message: 'Channel name must be a string.' },
+			})
+			.describe('Name of the Discord channel'),
 		matchOdds: matchOddsSchema,
 		...matchTeamsSchema.shape,
 		metadata: matchMetadataSchema.optional(),
@@ -87,20 +155,65 @@ export const channelAggregatedSchema = z
  */
 export const matchEmbedDisplaySchema = z
 	.object({
-		favored: z.string().describe('Team favored to win'),
+		favored: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Favored team name is required.' }
+						: { message: 'Favored team name must be a string.' },
+			})
+			.describe('Team favored to win'),
 		favoredTeamClr: colorResolvableSchema.describe(
 			'Color for the favored team',
 		),
-		home_team: z.string().describe('Full name of home team'),
+		home_team: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Home team name is required.' }
+						: { message: 'Home team name must be a string.' },
+			})
+			.describe('Full name of home team'),
 		homeTeamShortName: z
-			.string()
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Home team short name is required.' }
+						: { message: 'Home team short name must be a string.' },
+			})
 			.describe('Short name/abbreviation of home team'),
-		away_team: z.string().describe('Full name of away team'),
+		away_team: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Away team name is required.' }
+						: { message: 'Away team name must be a string.' },
+			})
+			.describe('Full name of away team'),
 		awayTeamShortName: z
-			.string()
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Away team short name is required.' }
+						: { message: 'Away team short name must be a string.' },
+			})
 			.describe('Short name/abbreviation of away team'),
-		bettingChanId: z.string().describe('ID of the betting channel'),
-		header: z.string().describe('Header text for the match embed'),
+		bettingChanId: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Betting channel ID is required.' }
+						: { message: 'Betting channel ID must be a string.' },
+			})
+			.describe('ID of the betting channel'),
+		header: z
+			.string({
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Embed header is required.' }
+						: { message: 'Embed header must be a string.' },
+			})
+			.describe('Header text for the match embed'),
 		sport: sportsServingSchema.describe('Sport type for the match'),
 		records: teamRecordsResultSchema
 			.nullable()
@@ -116,7 +229,12 @@ export const matchEmbedDisplaySchema = z
 export const channelEligibleGuildSchema = guildConfigSchema
 	.extend({
 		eligibleMatches: z
-			.array(z.string())
+			.array(z.string({ error: 'Each match ID must be a string.' }), {
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Eligible matches array is required.' }
+						: { message: 'Eligible matches must be an array.' },
+			})
 			.describe('List of match IDs eligible for channel creation'),
 	})
 	.describe('Guild data for channel creation eligibility');
@@ -129,7 +247,7 @@ export const channelCreationEventSchema = z
 	.object({
 		channel: channelAggregatedSchema,
 		guild: channelEligibleGuildSchema,
-		metadata: bullMqMetadataSchema,
+		metadata: bullMqMetadataSchema.optional(),
 	})
 	.describe('Event data for channel creation operations');
 
@@ -140,10 +258,20 @@ export const channelCreationEventSchema = z
 export const incomingChannelDataSchema = z
 	.object({
 		channels: z
-			.array(channelAggregatedSchema)
+			.array(channelAggregatedSchema, {
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Channels array is required.' }
+						: { message: 'Channels must be an array.' },
+			})
 			.describe('Array of channel data'),
 		guilds: z
-			.array(channelEligibleGuildSchema)
+			.array(channelEligibleGuildSchema, {
+				error: (issue) =>
+					issue.input === undefined
+						? { message: 'Guilds array is required.' }
+						: { message: 'Guilds must be an array.' },
+			})
 			.describe('Array of eligible guild data'),
 	})
 	.describe('Schema for Pluto to process channel creation events');
@@ -163,11 +291,17 @@ export const ChannelWithGuildAggregatedSchema = z
  */
 export const channelEmbedPayloadSchema =
 	ChannelWithGuildAggregatedSchema.extend({
-		metadata: z.object({
-			favoredTeamInfo: z.custom<Team>().describe('Resolved team information'),
-			matchImg: z.instanceof(Buffer).nullable().describe('Match image buffer'),
-			...matchMetadataSchema.shape,
-		}),
+		metadata: z.object(
+			{
+				favoredTeamInfo: z.custom<Team>().describe('Resolved team information'),
+				matchImg: z
+					.instanceof(Buffer, { message: 'Match image must be a Buffer.' })
+					.nullable()
+					.describe('Match image buffer'),
+				...matchMetadataSchema.shape,
+			},
+			{ error: 'Invalid Channel Embed Payload metadata received' },
+		),
 	}).describe('Data required to create a channel and send an embed');
 
 export type ChannelWithGuildAggregated = z.infer<

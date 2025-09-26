@@ -26,20 +26,20 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/bun": "^1.2.3",
-		"@types/node": "^22.13.5",
-		"discord.js": "^14.18.0",
-		"lefthook": "^1.11.0",
-		"typedoc": "^0.27.8",
-		"typedoc-plugin-markdown": "^4.4.2",
-		"typedoc-plugin-mdn-links": "^4.0.14",
-		"typedoc-plugin-zod": "^1.3.1",
-		"typedoc-theme-hierarchy": "^5.0.4",
-		"typescript": "^5.0.0"
+		"@types/bun": "^1.2.22",
+		"@types/node": "^22.18.5",
+		"discord.js": "^14.22.1",
+		"lefthook": "^1.13.1",
+		"typedoc": "^0.27.9",
+		"typedoc-plugin-markdown": "^4.8.1",
+		"typedoc-plugin-mdn-links": "^4.0.15",
+		"typedoc-plugin-zod": "^1.4.2",
+		"typedoc-theme-hierarchy": "^5.0.5",
+		"typescript": "^5.9.2"
 	},
 	"dependencies": {
 		"resolve-team": "^2.0.4",
-		"zod": "^3.24.2"
+		"zod": "^4.1.11"
 	},
 	"peerDependencies": {
 		"discord.js": "^14.0.0"
