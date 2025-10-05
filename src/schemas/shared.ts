@@ -9,8 +9,11 @@ import { z } from 'zod';
  * @group Queue
  */
 export const bullMqMetadataSchema = z
-	.object({
-		publishedAt: z.date().describe('Timestamp when the event was published'),
+	.looseObject({
+		publishedAt: z
+			.union([z.date(), z.string().transform((val) => new Date(val))])
+			.pipe(z.date())
+			.describe('Timestamp when the event was published'),
 		eventId: z.string().describe('Unique identifier for tracking the event'),
 	})
 	.describe('Common metadata structure for BullMQ jobs');

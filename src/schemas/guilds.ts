@@ -9,7 +9,7 @@ import { z } from 'zod';
  * @group Guilds
  */
 export const guildConfigSchema = z
-	.object({
+	.looseObject({
 		guildId: z.string().describe('Discord guild (server) ID'),
 		bettingChannelId: z
 			.string()

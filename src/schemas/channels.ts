@@ -107,7 +107,7 @@ export const channelDeletionEventSchema = z
  * @group Channel Data
  */
 export const channelAggregatedSchema = z
-	.object({
+	.looseObject({
 		id: z
 			.string({
 				error: (issue) =>
@@ -128,12 +128,8 @@ export const channelAggregatedSchema = z
 				'Whether the channel has been created in Discord [DEPRECATED FLAG]',
 			),
 		gametime: z
-			.date({
-				error: (issue) =>
-					issue.input === undefined
-						? { message: 'Game time is required.' }
-						: { message: 'Game time must be a valid date.' },
-			})
+			.union([z.date(), z.string().transform((val) => new Date(val))])
+			.pipe(z.date())
 			.describe('Scheduled time for the game/match'),
 		channelname: z
 			.string({
@@ -145,7 +141,7 @@ export const channelAggregatedSchema = z
 			.describe('Name of the Discord channel'),
 		matchOdds: matchOddsSchema,
 		...matchTeamsSchema.shape,
-		metadata: matchMetadataSchema.optional(),
+		metadata: matchMetadataSchema.nullable().optional(),
 	})
 	.describe('Aggregated channel information including match and odds details');
 
@@ -226,8 +222,9 @@ export const matchEmbedDisplaySchema = z
  * Schema for guild data with channel creation eligibility
  * @group Guilds
  */
-export const channelEligibleGuildSchema = guildConfigSchema
-	.extend({
+export const channelEligibleGuildSchema = z
+	.looseObject({
+		...guildConfigSchema.shape,
 		eligibleMatches: z
 			.array(z.string({ error: 'Each match ID must be a string.' }), {
 				error: (issue) =>
@@ -244,10 +241,10 @@ export const channelEligibleGuildSchema = guildConfigSchema
  * @group Channel Creation
  */
 export const channelCreationEventSchema = z
-	.object({
+	.looseObject({
 		channel: channelAggregatedSchema,
 		guild: channelEligibleGuildSchema,
-		metadata: bullMqMetadataSchema.optional(),
+		metadata: bullMqMetadataSchema.nullable().optional(),
 	})
 	.describe('Event data for channel creation operations');
 
