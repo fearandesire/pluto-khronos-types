@@ -143,3 +143,6 @@ html
 .cursor
 
 .vscode
+
+.cursor/rules/kluster-code-verify.mdc
+.kluster
