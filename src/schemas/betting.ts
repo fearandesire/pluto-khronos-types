@@ -40,7 +40,7 @@ export type IBetslipPush = z.infer<typeof betslipPushSchema>;
 export const notificationBetResultsSchema = z
 	.object({
 		winners: z.array(z.any()).nullable().describe('Array of winning bets'),
-		losers: z.array(z.any()).describe('Array of losing bets'),
+		losers: z.array(z.any()).nullable().describe('Array of losing bets'),
 		pushes: z
 			.array(betslipPushSchema)
 			.optional()
