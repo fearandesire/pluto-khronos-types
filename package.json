@@ -1,6 +1,6 @@
 {
 	"name": "@pluto-khronos/types",
-	"version": "0.2.4",
+	"version": "0.3.0",
 	"description": "Shared TypeScript types for Pluto & Khronos projects",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -11,10 +11,14 @@
 		"build": "tsc",
 		"type-check": "tsc --noEmit",
 		"clean": "rm -rf dist",
+		"lint": "biome check .",
 		"format": "biome check --write --unsafe .",
 		"docs": "typedoc",
 		"docs:watch": "typedoc --watch",
-		"prepublish": "bun run build && bun run type-check && bun run format && bun run docs"
+		"prepublish": "bun run build && bun run type-check && bun run format && bun run docs",
+		"bump:patch": "npm version --no-git-tag-version patch",
+		"bump:minor": "npm version --no-git-tag-version minor",
+		"bump:major": "npm version --no-git-tag-version major"
 	},
 	"publishConfig": {
 		"access": "public"
