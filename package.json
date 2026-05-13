@@ -27,6 +27,10 @@
 		"typescript",
 		"types"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fearandesire/pluto-khronos-types"
+	},
 	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
