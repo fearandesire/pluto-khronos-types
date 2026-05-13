@@ -16,11 +16,9 @@
 		"docs": "typedoc",
 		"docs:watch": "typedoc --watch",
 		"prepublish": "bun run build && bun run type-check && bun run format && bun run docs",
-		"preversion": "bun run clean && bun run build && bun run type-check && bun run lint",
-		"postversion": "git push --follow-tags",
-		"release:patch": "npm version patch -m \"chore: release v%s\"",
-		"release:minor": "npm version minor -m \"chore: release v%s\"",
-		"release:major": "npm version major -m \"chore: release v%s\""
+		"bump:patch": "npm version --no-git-tag-version patch",
+		"bump:minor": "npm version --no-git-tag-version minor",
+		"bump:major": "npm version --no-git-tag-version major"
 	},
 	"publishConfig": {
 		"access": "public"
